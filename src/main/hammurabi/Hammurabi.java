@@ -55,20 +55,20 @@ void playGame() {
         bushels += sold * landValue;
         }
 
-        int feed = askHowMuchGrainToFeedPeople(bushels);
-        bushels -= feed;
-
         int plant = askHowManyAcresToPlant(land, population, bushels);
         bushels -= plant * 2;
 
         plague = plagueDeaths(population);
         population -= plague;
 
+        int feed = askHowMuchGrainToFeedPeople(bushels);
+        bushels -= feed;
+
         starved = starvationDeaths(population, feed);
         population -= starved;
 
         if(uprising(population, starved)){
-        System.out.println("Listen,the population is starving, you cant handle the thrown!!!!");
+        System.out.println("They have no more food, you cant handle the thrown!!!!");
         break;
         }
         if(starved == 0) {
@@ -184,9 +184,9 @@ void playGame() {
 
         public int starvationDeaths ( int population, int bushelsFedToPeople){
             int starve = 0;
-            int survivors = bushelsFedToPeople / 20;
+            int peopleStillAlive = bushelsFedToPeople / 20;
             if (population > bushelsFedToPeople / 20) {
-                starve = population - survivors;
+                starve = population - peopleStillAlive;
             }
             return starve;
         }
